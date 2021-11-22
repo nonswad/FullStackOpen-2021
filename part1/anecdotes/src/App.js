@@ -1,170 +1,54 @@
-import React from 'react'
-
- const Header = (props) => {
-   console.log(props)
-   return(
-    <div>
-    <h1>{props.course}</h1>
-    </div>
-   )
- }
-
- const Part = (props) => (
-  <div>
-  <p>{props.part} {props.exercises}</p>
-  </div>
- )
-
- const Content = (props) => (
-  <div>
-  <Part part = {props.parts[0].name} exercises = {props.parts[0].exercises}/>
-  <Part part = {props.parts[1].name} exercises = {props.parts[1].exercises}/>
-  <Part part = {props.parts[2].name} exercises = {props.parts[2].exercises}/>
-  </div>
-)
-
-const Total = (props) => (
-  <div>
-  <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-  </div>
-)
+import React, { useState } from 'react'
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
-  return (
-    <div>
-      <Header course = {course.name}/>
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  )
-}
-
-//Exercise 1.4
-
- /*
- const Content = (props) => (
-  <div>
-  <Part part = {props.parts[0].name} exercises = {props.parts[0].exercises}/>
-  <Part part = {props.parts[1].name} exercises = {props.parts[1].exercises}/>
-  <Part part = {props.parts[2].name} exercises = {props.parts[2].exercises}/>
-  </div>
-)
-
-const Total = (props) => (
-  <div>
-  <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-  </div>
-)
-
-const App = () => {
-  const course = 'Half Stack application development'
-  const parts = [
-    {
-      name: 'Fundamentals of React',
-      exercises: 10
-    },
-    {
-      name: 'Using props to pass data',
-      exercises: 7
-    },
-    {
-      name: 'State of a component',
-      exercises: 14
-    }
+  const anecdotes = [
+    'If it hurts, do it more often',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
   ]
+   
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Uint8Array(7))
+
+  console.log('glasovi si', votes)
+  const copy = [...votes]
+
+  const nextAnecdote = () => {
+    let min = 0
+    let max = anecdotes.length
+    let rand = -1
+    do{
+      rand = Math.floor(min + Math.random() * (max-min))
+    } while (rand === selected)
+    setSelected(rand)
+  }
+
+  const vote = () => {
+    copy[selected] += 1
+    setVotes(copy)
+  }
+
+  var indexOfMaxValue = copy.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+
   return (
     <div>
-      <Header course = {course}/>
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <h1> Anecdote of the day </h1>
+      {anecdotes[selected]}
+      <p> has {votes[selected]} votes</p>
+      <button onClick = {nextAnecdote}>
+        next anecdote
+      </button>
+      <button onClick = {vote}>
+        vote
+      </button>
+      <h1> Anecdote with most votes </h1>
+      {anecdotes[indexOfMaxValue]}
     </div>
   )
 }
-*/
-
-//Exercise 1.3
-
-/*
- const Part = (props) => (
-  <div>
-  <p>{props.part} {props.exercises}</p>
-  </div>
- )
-
- const Content = (props) => (
-  <div>
-  <Part part = {props.part1} exercises = {props.exercises1}/>
-  <Part part = {props.part2} exercises = {props.exercises2}/>
-  <Part part = {props.part3} exercises = {props.exercises3}/>
-  </div>
-)
-
-const Total = (props) => (
-  <div>
-  <p>Number of exercises {props.exercises1 + props.exercises2 + props.exercises3}</p>
-  </div>
-)
-
-const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = {
-    name:'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name:'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name:'State of a component',
-    exercises: 14
-  }
-
-  return (
-    <div>
-      <Header course = {course}/>
-      <Content part1 = {part1.name} exercises1 = {part1.exercises1} part2 = {part2.name} exercises2 = {part2.exercises2} part3 = {part3.name} exercises3 = {part3.exercises3}/>
-      <Total exercises1 = {part1.exercises} exercises2 = {part2.exercises} exercises3 = {part3.exercises} />
-    </div>
-  )
-}
-*/
-
-//App for Exercise 1.2
-
-/*const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
-
-  return (
-    <div>
-      <Header course = {course}/>
-      <Content part1 = {part1} exercises1 = {exercises1} part2 = {part2} exercises2 = {exercises2} part3 = {part3} exercises3 = {exercises3}/>
-      <Total exercises1 = {exercises1} exercises2 = {exercises2} exercises3 = {exercises3} />
-    </div>
-  )
-}*/
 
 export default App
