@@ -1,5 +1,5 @@
 # Explanation
-Containing exercises 1.6-1.11.
+Containing exercises 1.12 - 1.14.
 
 # Getting Started with Create React App
 
