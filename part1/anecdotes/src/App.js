@@ -15,7 +15,7 @@ const App = () => {
   const [votes, setVotes] = useState(new Uint8Array(7))
 
   console.log('glasovi si', votes)
-  const copy = [...votes]
+  //const copy = [...votes]
 
   const nextAnecdote = () => {
     let min = 0
