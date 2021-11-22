@@ -1,4 +1,4 @@
-Containing exercises 1.1-1.6.
+# Containing exercises 1.1-1.6.
 
 # Getting Started with Create React App
 
