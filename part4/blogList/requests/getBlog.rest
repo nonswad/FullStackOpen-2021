@@ -10,3 +10,13 @@ Content-Type: application/json
         "url": "te",
         "likes": "45455555"
     }
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+    {
+        "username": "yes",
+        "name": "test",
+        
+    }
