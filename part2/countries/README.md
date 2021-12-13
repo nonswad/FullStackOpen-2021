@@ -1,3 +1,7 @@
+# About
+
+Web application showing data for countries using https://restcountries.com/ API and weather in the capital using https://openweathermap.org/ API.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
