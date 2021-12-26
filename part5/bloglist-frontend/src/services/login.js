@@ -6,4 +6,6 @@ const login = async credentials => {
   return response.data
 }
 
+/*const exportedObject = {login,}
+export default exportedObject*/
 export default { login }

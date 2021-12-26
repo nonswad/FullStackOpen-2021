@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Toggleable from './components/Togglealbe'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -12,13 +14,13 @@ const App = () => {
 
   const [user, setUser] = useState(null)
 
-  const [title, setTitle] = useState('')
+/*  const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
-
+*/
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(blogs.sort((a, b) => b.likes - a.likes))
     )  
   }, [])
 
@@ -61,6 +63,7 @@ const App = () => {
     window.localStorage.clear()
   }
 
+/*
   const addNewBlog = async (event) => {
     event.preventDefault()
 
@@ -85,14 +88,12 @@ const App = () => {
     catch(exception) {
       console.log('exception is', exception)
     }
-
-  }
+  }*/
 
   const loginForm = () => (
     <form onSubmit = {handleLogin}>
       <div>
       <h2>log in to application</h2>
-      <h2>{message}</h2>
         username
         <input 
           type = "text"
@@ -114,6 +115,49 @@ const App = () => {
     </form>
   )
 
+  const blogList = () => (  
+    <div>
+    <p>
+      {user.name} logged in
+      <button onClick = {handleLogout}>logout</button>
+    </p>
+    {blogs.map(blog =>
+      <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs}/>
+    )}
+    </div>
+  )
+  
+  const blogForm = () => (
+    <Toggleable buttonLabel='new blog'>
+    <BlogForm
+      setMessage={setMessage}
+      blogs={blogs}
+      setBlogs={setBlogs}
+    />
+  </Toggleable>
+  )
+
+
+  return (
+    <div>
+      <h2>blogs</h2>      
+      <h2>{message}</h2>
+      {user === null 
+        ? loginForm()
+        : (
+          <div>
+            {blogList(blogs)}
+            {blogForm()}
+          </div>
+        )        
+      }
+    </div>
+  )
+}
+
+export default App
+
+/*
   const blogForm = () => (
     <div>
       <h2>blogs</h2>
@@ -160,13 +204,4 @@ const App = () => {
       )}
     </div>
   )
-
-  return (
-    <div>
-      {user === null && loginForm()}
-      {user !== null && blogForm()}
-    </div>
-  )
-}
-
-export default App
+*/
